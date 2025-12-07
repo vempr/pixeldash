@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://bgv2w1x12h7do"]
+
+[ext_resource type="Script" uid="uid://byd2iu7idujeo" path="res://scripts/trail_ball.gd" id="1_re6dv"]
+
+[sub_resource type="Gradient" id="Gradient_kf6i4"]
+offsets = PackedFloat32Array(0.6803279, 0.6885246, 0.6939163, 0.6958175, 0.69961977)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_re6dv"]
+gradient = SubResource("Gradient_kf6i4")
+width = 30
+height = 30
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_re6dv"]
+offsets = PackedFloat32Array(0, 0, 0, 0.69871795, 0.7029914)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0.13319641, 0.13319641, 0.13319638, 1, 0.13333334, 0.13333334, 0.13333334, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5rfap"]
+gradient = SubResource("Gradient_re6dv")
+width = 30
+height = 30
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="TrailBall" type="Node2D"]
+z_index = -2
+script = ExtResource("1_re6dv")
+
+[node name="WhiteSprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+texture = SubResource("GradientTexture2D_re6dv")
+
+[node name="GraySprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+texture = SubResource("GradientTexture2D_5rfap")
+
+[node name="DecayTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.2
+
+[connection signal="timeout" from="DecayTimer" to="." method="_on_decay_timer_timeout"]

@@ -13,6 +13,7 @@ const JUMP_BUFFER_TIME := 0.15
 var current_gravity_scale := 1.0
 
 var gamemode: G.GAMEMODE = G.GAMEMODE.CUBE
+var draw_trail := false
 
 const BASE_SPEED := 800.0
 var SPEED := BASE_SPEED
@@ -25,6 +26,9 @@ var SHIP_ROTATION_LIMIT := deg_to_rad(45)
 var is_playing_spin_anim := false
 var jump_buffer := 0.0
 var pending_ball_kick := false
+var skip_wave_flip_animation := false
+
+@onready var TrailBallScene := preload("res://scenes/trail_ball.tscn")
 
 
 func _ready() -> void:
@@ -44,6 +48,14 @@ func _physics_process(delta: float) -> void:
 			process_gamemode_ship(delta)
 		G.GAMEMODE.BALL:
 			process_gamemode_ball(delta)
+		G.GAMEMODE.WAVE:
+			process_gamemode_wave(delta)
+	
+	if draw_trail:
+		var tb := TrailBallScene.instantiate()
+		tb.use_white_sprite = false
+		tb.global_position = position
+		get_parent().add_child(tb)
 
 
 func _on_change_gamemode(gm: G.GAMEMODE) -> void:
@@ -70,6 +82,9 @@ func _on_change_gamemode(gm: G.GAMEMODE) -> void:
 		G.GAMEMODE.BALL:
 			%Ball.visible = true
 			call_deferred("enable_collider", %BallCollisionShape)
+		G.GAMEMODE.WAVE:
+			%Wave.visible = true
+			call_deferred("enable_collider", %WaveCollisionShape)
 	
 	gamemode = gm
 
@@ -89,6 +104,14 @@ func _on_change_speed(s: int) -> void:
 
 
 func _on_orb_clicked(o: int) -> void:
+	if gamemode == G.GAMEMODE.CUBE || gamemode == G.GAMEMODE.BALL:
+		draw_trail = true
+		%TrailTimer.start(0.4)
+	
+	if o == G.ORB.BLUE:
+		current_gravity_scale *= -1
+		%Sprite.scale.y = current_gravity_scale
+	
 	match gamemode:
 		G.GAMEMODE.CUBE:
 			match o:
@@ -97,7 +120,6 @@ func _on_orb_clicked(o: int) -> void:
 				G.ORB.PINK:
 					jump_cube(0.75)
 				G.ORB.BLUE:
-					current_gravity_scale *= -1
 					velocity.y = -velocity.y * 0.5
 		G.GAMEMODE.SHIP:
 			match o:
@@ -106,8 +128,6 @@ func _on_orb_clicked(o: int) -> void:
 				G.ORB.PINK:
 					jump_cube()
 				G.ORB.BLUE:
-					current_gravity_scale *= -1
-					%Sprite.scale.y = current_gravity_scale
 					velocity.y = -velocity.y * 0.5
 		G.GAMEMODE.BALL:
 			match o:
@@ -116,24 +136,33 @@ func _on_orb_clicked(o: int) -> void:
 				G.ORB.PINK:
 					ball_jump()
 				G.ORB.BLUE:
-					current_gravity_scale *= -1
 					velocity.y = -velocity.y * 0.2
 					if current_gravity_scale > 0:
 						%BallSpriteAP.play("spin")
 					else:
 						%BallSpriteAP.play_backwards("spin")
+		G.GAMEMODE.WAVE:
+			match o:
+				G.ORB.BLUE:
+					skip_wave_flip_animation = true
+					if current_gravity_scale > 0:
+						%WaveSpriteAP.play("up")
+					else:
+						%WaveSpriteAP.play("down")
 
 
 func hide_all_sprites() -> void:
 	%Cube.visible = false
 	%Ship.visible = false
 	%Ball.visible = false
+	%Wave.visible = false
 
 
 func disable_all_colliders() -> void:
 	%CubeCollisionShape.disabled = true
 	%ShipCollisionShape.disabled = true
 	%BallCollisionShape.disabled = true
+	%WaveCollisionShape.disabled = true
 
 
 func enable_collider(c: CollisionShape2D) -> void:
@@ -184,6 +213,13 @@ func process_gamemode_cube(delta: float) -> void:
  
 
 func process_gamemode_ship(delta: float) -> void:
+	var tb := TrailBallScene.instantiate()
+	tb.use_white_sprite = false
+	tb.bigger = true
+	tb.global_position = position
+	tb.global_position.x -= 20.0
+	get_parent().add_child(tb)
+	
 	velocity += get_gravity() * delta * 3.0 * current_gravity_scale
 	
 	if Input.is_action_pressed("jump"):
@@ -235,3 +271,38 @@ func process_gamemode_ball(delta: float) -> void:
 
 func ball_jump(multi: float = 1.0) -> void:
 	velocity.y = CUBE_JUMP_VELOCITY * current_gravity_scale * multi
+
+
+func process_gamemode_wave(_delta: float) -> void:
+	var skip_animation = skip_wave_flip_animation
+	skip_wave_flip_animation = false
+	
+	var floored := (current_gravity_scale > 0 && is_on_floor()) || (current_gravity_scale < 0 && is_on_ceiling())
+	
+	if floored:
+		print("ded")
+	
+	var new_vel: float
+	if Input.is_action_pressed("jump"):
+		new_vel = -SPEED * current_gravity_scale
+	else:
+		new_vel = SPEED * current_gravity_scale
+	
+	if !skip_animation:
+		if sign(velocity.y) != sign(new_vel):
+			if (sign(velocity.y) > 0 && current_gravity_scale > 0) || (sign(velocity.y) < 0 && current_gravity_scale < 0):
+				%WaveSpriteAP.play("up")
+			elif (sign(velocity.y) < 0 && current_gravity_scale > 0) || (sign(velocity.y) > 0 && current_gravity_scale < 0):
+				%WaveSpriteAP.play("down")
+	
+	velocity.y = new_vel
+	move_and_slide()
+	
+	var tb := TrailBallScene.instantiate()
+	tb.use_white_sprite = true
+	tb.global_position = position
+	get_parent().add_child(tb)
+
+
+func _on_trail_timer_timeout() -> void:
+	draw_trail = false

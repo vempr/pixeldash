@@ -14,6 +14,9 @@ func _ready() -> void:
 		G.GAMEMODE.BALL:
 			%Indicator.text = "ball"
 			%Indicator.add_theme_color_override("font_color", Color(1.0, 0.0, 0.259))
+		G.GAMEMODE.WAVE:
+			%Indicator.text = "wave"
+			%Indicator.add_theme_color_override("font_color", Color(0.09, 0.718, 0.816))
 
 
 func _on_body_entered(body: Node2D) -> void:
