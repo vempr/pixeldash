@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://x8yib13ffx6t"]
+
+[ext_resource type="Script" uid="uid://bbg2xh0hx78q8" path="res://scripts/portal.gd" id="1_v0xau"]
+[ext_resource type="FontFile" uid="uid://5rl5t366etfu" path="res://assets/fonts/PixelOperator8.ttf" id="2_1ffj6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ppl40"]
+size = Vector2(60, 250)
+
+[node name="Portal" type="Area2D"]
+z_index = 1
+script = ExtResource("1_v0xau")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ppl40")
+
+[node name="PortalSprite" type="Polygon2D" parent="."]
+unique_name_in_owner = true
+polygon = PackedVector2Array(-16, -125, 16, -125, 30, -111, 30, 112, 16, 125, -16, 125, -30, 113, -30, -111)
+
+[node name="Indicator" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = 16.000004
+offset_top = -113.54579
+offset_right = 244.09158
+offset_bottom = -82.54579
+rotation = 1.5707964
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_1ffj6")
+theme_override_font_sizes/font_size = 30
+text = "cube"
+horizontal_alignment = 1
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
