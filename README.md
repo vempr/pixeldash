@@ -7,10 +7,10 @@ jump with W, ↑, ␣, or LMB.
 
 ## gallery
 
-![](./readme/week-14-1.jpg)
-![](./readme/week-14-2.jpg)
-![](./readme/week-14-3.jpg)
-![](./readme/week-14-4.jpg)
+![](./assets/readme/week-14-1.jpg)
+![](./assets/readme/week-14-2.jpg)
+![](./assets/readme/week-14-3.jpg)
+![](./assets/readme/week-14-4.jpg)
 
 ## Credits
 - Font: PixelOperator
