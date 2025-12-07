@@ -7,3 +7,8 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	pass
+
+
+func _on_player_restart() -> void:
+	if get_tree():
+		get_tree().reload_current_scene()

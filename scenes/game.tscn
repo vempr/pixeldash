@@ -1,11 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://r4aobl45amqc"]
+[gd_scene load_steps=11 format=3 uid="uid://r4aobl45amqc"]
 
 [ext_resource type="Script" uid="uid://cjx5q4iutkmsw" path="res://scripts/game.gd" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://ucyt4248p448" path="res://scenes/player.tscn" id="2_yqjtg"]
-[ext_resource type="PackedScene" uid="uid://x8yib13ffx6t" path="res://scenes/portal.tscn" id="3_lnu2h"]
-[ext_resource type="PackedScene" uid="uid://c1c0m3h2438di" path="res://scenes/gravity_portal.tscn" id="4_lbhrr"]
-[ext_resource type="PackedScene" uid="uid://d3gft43fec0bl" path="res://scenes/speed_portal.tscn" id="5_iywne"]
-[ext_resource type="PackedScene" uid="uid://bfssui8kfkpyb" path="res://scenes/orb.tscn" id="6_p57ef"]
+[ext_resource type="PackedScene" uid="uid://x8yib13ffx6t" path="res://scenes/interact/portal.tscn" id="3_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://c1c0m3h2438di" path="res://scenes/interact/gravity_portal.tscn" id="4_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://d3gft43fec0bl" path="res://scenes/interact/speed_portal.tscn" id="5_iywne"]
+[ext_resource type="PackedScene" uid="uid://bfssui8kfkpyb" path="res://scenes/interact/orb.tscn" id="6_p57ef"]
+[ext_resource type="PackedScene" uid="uid://dlsxnkhitwmn5" path="res://scenes/killable/y_border.tscn" id="7_u5sy4"]
+[ext_resource type="PackedScene" uid="uid://dtewbm8cdkvod" path="res://scenes/killable/spike.tscn" id="8_0tnpc"]
+[ext_resource type="PackedScene" uid="uid://bfpcpysh85vji" path="res://scenes/killable/sawblade.tscn" id="9_vtaks"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uwrxv"]
 size = Vector2(6235, 306)
@@ -14,7 +17,7 @@ size = Vector2(6235, 306)
 script = ExtResource("1_uwrxv")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(16, 943)
+position = Vector2(-5461, 953)
 metadata/_edit_group_ = true
 
 [node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
@@ -26,7 +29,7 @@ position = Vector2(3107.5, 143)
 shape = SubResource("RectangleShape2D_uwrxv")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
-position = Vector2(53, 26)
+position = Vector2(1211, -96)
 metadata/_edit_group_ = true
 
 [node name="ColorRect" type="ColorRect" parent="StaticBody2D2"]
@@ -42,7 +45,7 @@ position = Vector2(90, 736)
 
 [node name="Portal" parent="." instance=ExtResource("3_lnu2h")]
 position = Vector2(240, 751)
-gamemode = 2
+gamemode = 1
 
 [node name="Portal2" parent="." instance=ExtResource("3_lnu2h")]
 position = Vector2(2702, 549)
@@ -80,3 +83,14 @@ position = Vector2(5414, 461)
 [node name="Orb7" parent="." instance=ExtResource("6_p57ef")]
 position = Vector2(6928, 434)
 orb = 2
+
+[node name="YBorder" parent="." instance=ExtResource("7_u5sy4")]
+position = Vector2(622, 1398)
+
+[node name="Spike" parent="." instance=ExtResource("8_0tnpc")]
+position = Vector2(755, 929)
+
+[node name="Sawblade" parent="." instance=ExtResource("9_vtaks")]
+position = Vector2(843, 475)
+
+[connection signal="restart" from="Player" to="." method="_on_player_restart"]

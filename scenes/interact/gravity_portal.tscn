@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c1c0m3h2438di"]
 
-[ext_resource type="Script" uid="uid://45c4qjmg6x4f" path="res://scripts/gravity_portal.gd" id="1_j7w7d"]
+[ext_resource type="Script" uid="uid://45c4qjmg6x4f" path="res://scripts/interact/gravity_portal.gd" id="1_j7w7d"]
 [ext_resource type="FontFile" uid="uid://5rl5t366etfu" path="res://assets/fonts/PixelOperator8.ttf" id="2_37i34"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ppl40"]

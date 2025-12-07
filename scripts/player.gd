@@ -8,12 +8,16 @@ signal flip_gravity
 signal change_speed(s: G.SPEED)
 @warning_ignore("unused_signal")
 signal click_orb(o: G.ORB)
+@warning_ignore("unused_signal")
+signal die
+signal restart
 
 const JUMP_BUFFER_TIME := 0.15
 var current_gravity_scale := 1.0
 
 var gamemode: G.GAMEMODE = G.GAMEMODE.CUBE
 var draw_trail := false
+var dead := false
 
 const BASE_SPEED := 800.0
 var SPEED := BASE_SPEED
@@ -41,6 +45,15 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if dead || velocity.x == 0:
+		dead = true
+		%Sprite.visible = false
+		%DieAP.play("explode")
+		await %DieAP.animation_finished
+		process_mode = Node.PROCESS_MODE_DISABLED
+		await get_tree().create_timer(1.0).timeout
+		restart.emit()
+	
 	match gamemode:
 		G.GAMEMODE.CUBE:
 			process_gamemode_cube(delta)
@@ -277,10 +290,9 @@ func process_gamemode_wave(_delta: float) -> void:
 	var skip_animation = skip_wave_flip_animation
 	skip_wave_flip_animation = false
 	
-	var floored := (current_gravity_scale > 0 && is_on_floor()) || (current_gravity_scale < 0 && is_on_ceiling())
-	
-	if floored:
-		print("ded")
+	if is_on_floor() || is_on_ceiling():
+		dead = true
+		return
 	
 	var new_vel: float
 	if Input.is_action_pressed("jump"):
@@ -306,3 +318,7 @@ func process_gamemode_wave(_delta: float) -> void:
 
 func _on_trail_timer_timeout() -> void:
 	draw_trail = false
+
+
+func _on_die() -> void:
+	dead = true

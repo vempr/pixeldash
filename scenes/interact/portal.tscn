@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://x8yib13ffx6t"]
 
-[ext_resource type="Script" uid="uid://bbg2xh0hx78q8" path="res://scripts/portal.gd" id="1_v0xau"]
+[ext_resource type="Script" uid="uid://bbg2xh0hx78q8" path="res://scripts/interact/portal.gd" id="1_v0xau"]
 [ext_resource type="FontFile" uid="uid://dqah31gtvyewx" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="2_1ffj6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ppl40"]

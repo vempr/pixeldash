@@ -1,9 +1,24 @@
 [gd_scene load_steps=13 format=3 uid="uid://bfssui8kfkpyb"]
 
-[ext_resource type="Script" uid="uid://c87marde60w2n" path="res://scripts/orb.gd" id="1_ktqa0"]
+[ext_resource type="Script" uid="uid://c87marde60w2n" path="res://scripts/interact/orb.gd" id="1_ktqa0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1j06i"]
 radius = 60.0
+
+[sub_resource type="Animation" id="Animation_ubfm6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_ktqa0"]
 resource_name = "expand"
@@ -19,21 +34,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1.7, 1.7)]
-}
-
-[sub_resource type="Animation" id="Animation_ubfm6"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_g6cbt"]

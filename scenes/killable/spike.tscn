@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtewbm8cdkvod"]
+
+[ext_resource type="Script" uid="uid://cwmr4y2be16qo" path="res://scripts/killable/spike.gd" id="1_jnn5o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5ludp"]
+size = Vector2(20, 39)
+
+[node name="Spike" type="Area2D"]
+collision_layer = 2
+script = ExtResource("1_jnn5o")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(0, -34, 28, 29, -28, 29)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 9.5)
+shape = SubResource("RectangleShape2D_5ludp")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
