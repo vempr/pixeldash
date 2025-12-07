@@ -9,6 +9,11 @@ func _ready() -> void:
 		%GraySprite.texture.height = 60
 		%WhiteSprite.texture.width = 60
 		%WhiteSprite.texture.height = 60
+	else:
+		%GraySprite.texture.width = 30
+		%GraySprite.texture.height = 30
+		%WhiteSprite.texture.width = 30
+		%WhiteSprite.texture.height = 30
 	
 	if use_white_sprite:
 		%WhiteSprite.visible = true

@@ -12,3 +12,4 @@ var SPEED_EFFECTS := {
 }
 
 var attempts := 1
+var current_level := 0

@@ -49,6 +49,9 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if died:
+		return
+	
 	if won:
 		died = true
 		won = false
@@ -57,7 +60,11 @@ func _physics_process(delta: float) -> void:
 		await %DieAP.animation_finished
 		process_mode = Node.PROCESS_MODE_DISABLED
 	
-	if dead || velocity.x == 0:
+	if velocity.x == 0:
+		dead = true
+	
+	if dead:
+		%Song.stop()
 		dead = false
 		died = true
 		%Sprite.visible = false
@@ -84,6 +91,7 @@ func _physics_process(delta: float) -> void:
 	if draw_trail:
 		var tb := TrailBallScene.instantiate()
 		tb.use_white_sprite = false
+		tb.bigger = false
 		tb.global_position = position
 		get_parent().add_child(tb)
 
@@ -94,6 +102,7 @@ func _on_change_gamemode(gm: G.GAMEMODE) -> void:
 	
 	hide_all_sprites()
 	call_deferred("disable_all_colliders")
+	%Sprite.rotation = 0.0
 	
 	match gm:
 		G.GAMEMODE.CUBE:
@@ -140,7 +149,6 @@ func _on_orb_clicked(o: int) -> void:
 	
 	if o == G.ORB.BLUE:
 		current_gravity_scale *= -1
-		%Sprite.scale.y = current_gravity_scale
 	
 	match gamemode:
 		G.GAMEMODE.CUBE:
@@ -158,6 +166,7 @@ func _on_orb_clicked(o: int) -> void:
 				G.ORB.PINK:
 					jump_cube()
 				G.ORB.BLUE:
+					%Sprite.scale.y = current_gravity_scale
 					velocity.y = -velocity.y * 0.5
 		G.GAMEMODE.BALL:
 			match o:
@@ -166,6 +175,7 @@ func _on_orb_clicked(o: int) -> void:
 				G.ORB.PINK:
 					ball_jump()
 				G.ORB.BLUE:
+					%Sprite.scale.y = current_gravity_scale
 					velocity.y = -velocity.y * 0.2
 					if current_gravity_scale > 0:
 						%BallSpriteAP.play("spin")
@@ -174,6 +184,7 @@ func _on_orb_clicked(o: int) -> void:
 		G.GAMEMODE.WAVE:
 			match o:
 				G.ORB.BLUE:
+					%Sprite.scale.y = current_gravity_scale
 					skip_wave_flip_animation = true
 					if current_gravity_scale > 0:
 						%WaveSpriteAP.play("up")
@@ -329,6 +340,7 @@ func process_gamemode_wave(_delta: float) -> void:
 	
 	var tb := TrailBallScene.instantiate()
 	tb.use_white_sprite = true
+	tb.bigger = false
 	tb.global_position = position
 	get_parent().add_child(tb)
 

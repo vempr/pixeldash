@@ -1,3 +1,17 @@
+# pixeldash
+
+a simple geometry dash clone made in one day, really like the game so i tried my best to quickly build a simple version.
+built in 10 hours for my final Siege submission!
+
+jump with W, ↑, ␣, or LMB.
+
+## gallery
+
+![](./readme/week-14-1.jpg)
+![](./readme/week-14-2.jpg)
+![](./readme/week-14-3.jpg)
+![](./readme/week-14-4.jpg)
+
 ## Credits
 - Font: PixelOperator
 - Songs:

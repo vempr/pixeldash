@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://82u4lpv2alht"]
+
+[ext_resource type="PackedScene" uid="uid://r4aobl45amqc" path="res://scenes/game.tscn" id="1_o8c3j"]
+[ext_resource type="AudioStream" uid="uid://bpvvvlngyi0ta" path="res://assets/songs/ta1lsd004l.mp3" id="2_44gv1"]
+
+[node name="Level3" instance=ExtResource("1_o8c3j")]
+
+[node name="Song" parent="." index="0"]
+stream = ExtResource("2_44gv1")
+
+[node name="End" parent="." index="4"]
+position = Vector2(3206, 1646)
+scale = Vector2(3, 3)
