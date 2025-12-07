@@ -15,7 +15,7 @@ universal_fade/patterns_directory="res://addons/UniversalFade/Patterns"
 [application]
 
 config/name="pixeldash"
-run/main_scene="uid://r4aobl45amqc"
+run/main_scene="uid://dgx5ltdmvbttk"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 

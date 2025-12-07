@@ -1,0 +1,294 @@
+[gd_scene load_steps=15 format=3 uid="uid://dgx5ltdmvbttk"]
+
+[ext_resource type="Script" uid="uid://cbwj8r1e6c723" path="res://scripts/main_menu.gd" id="1_l6cm7"]
+[ext_resource type="FontFile" uid="uid://dqah31gtvyewx" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="2_ekxnf"]
+[ext_resource type="AudioStream" uid="uid://dq8pfmcb4r0uo" path="res://assets/songs/menu.mp3" id="2_wu84c"]
+[ext_resource type="FontFile" uid="uid://5rl5t366etfu" path="res://assets/fonts/PixelOperator8.ttf" id="3_bqqt6"]
+
+[sub_resource type="Animation" id="Animation_bqqt6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Title:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(53, 41)]
+}
+
+[sub_resource type="Animation" id="Animation_ekxnf"]
+resource_name = "float"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Title:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(53, 41), Vector2(53, 76), Vector2(53, 41)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wu84c"]
+_data = {
+&"RESET": SubResource("Animation_bqqt6"),
+&"float": SubResource("Animation_ekxnf")
+}
+
+[sub_resource type="Gradient" id="Gradient_1j06i"]
+offsets = PackedFloat32Array(0.6803279, 0.6885246, 0.6939163, 0.6958175, 0.69961977)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ekxnf"]
+gradient = SubResource("Gradient_1j06i")
+width = 105
+height = 105
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bqqt6"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ln24"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wu84c"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rtw2f"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oa1go"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_l6cm7")
+
+[node name="Menu" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_wu84c")
+volume_db = -10.0
+autoplay = true
+
+[node name="Title" type="Label" parent="."]
+offset_left = 53.0
+offset_top = 41.0
+offset_right = 903.0
+offset_bottom = 142.00089
+theme_override_fonts/font = ExtResource("2_ekxnf")
+theme_override_font_sizes/font_size = 100
+text = "pixeldash"
+
+[node name="hi" type="Label" parent="."]
+offset_left = 1507.0
+offset_top = 149.0
+offset_right = 1894.0
+offset_bottom = 180.0
+theme_override_fonts/font = ExtResource("3_bqqt6")
+theme_override_font_sizes/font_size = 20
+text = "@vempr (GitHub)"
+horizontal_alignment = 2
+
+[node name="intro" type="Label" parent="."]
+offset_left = 35.0
+offset_top = 691.0
+offset_right = 665.0
+offset_bottom = 1062.0
+theme_override_constants/line_spacing = 7
+theme_override_fonts/font = ExtResource("3_bqqt6")
+theme_override_font_sizes/font_size = 30
+text = "a simple geometry dash clone made in one day, really like the game so i tried my best to quickly build a simple version. black and white themed! "
+vertical_alignment = 2
+autowrap_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_wu84c")
+}
+autoplay = "float"
+
+[node name="CubeSprite" type="ColorRect" parent="."]
+offset_left = 1401.0
+offset_top = 28.0
+offset_right = 1501.0
+offset_bottom = 128.0
+pivot_offset = Vector2(50, 50)
+
+[node name="Wave" type="Node2D" parent="."]
+position = Vector2(1731.0001, 77.00001)
+rotation = -1.1693707
+scale = Vector2(0.9999999, 0.9999999)
+metadata/_edit_group_ = true
+
+[node name="WaveSprite" type="Polygon2D" parent="Wave"]
+polygon = PackedVector2Array(-50, -19, -50, 20, -27, 20, -37, 39, 50, 0, -35, -39, -27, -19)
+
+[node name="ShipSprite" type="Node2D" parent="."]
+position = Vector2(1600, 70.99994)
+rotation = 0.53232545
+scale = Vector2(0.795, 0.795)
+metadata/_edit_group_ = true
+
+[node name="CubeSprite" type="ColorRect" parent="ShipSprite"]
+offset_left = -45.0
+offset_top = -44.0
+offset_right = 41.0
+offset_bottom = 30.0
+pivot_offset = Vector2(50, 50)
+
+[node name="PortalSprite" type="Polygon2D" parent="ShipSprite"]
+unique_name_in_owner = true
+position = Vector2(-0.9594574, -6.6923094)
+scale = Vector2(0.9594595, 1.1538461)
+polygon = PackedVector2Array(-73, 13.6, -73, 34.4, -58.40845, 50, 51.028164, 50, 75.00001, 29.461086, 51.028164, 13.6, -60.49296, 13.6)
+
+[node name="Ball" type="Node2D" parent="."]
+position = Vector2(1847, 79)
+rotation = 1.1170107
+metadata/_edit_group_ = true
+
+[node name="BallSprite" type="Sprite2D" parent="Ball"]
+unique_name_in_owner = true
+texture = SubResource("GradientTexture2D_ekxnf")
+
+[node name="Square" type="ColorRect" parent="Ball"]
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+pivot_offset = Vector2(25, 25)
+color = Color(0, 0, 0, 1)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Level1" type="Button" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -440.5
+offset_top = -128.0
+offset_right = 440.5
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_ekxnf")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_bqqt6")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_8ln24")
+theme_override_styles/hover = SubResource("StyleBoxFlat_wu84c")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_rtw2f")
+theme_override_styles/focus = SubResource("StyleBoxFlat_oa1go")
+text = "creo - flow"
+
+[node name="Level2" type="Button" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -440.5
+offset_top = -39.0
+offset_right = 440.5
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_ekxnf")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_bqqt6")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_8ln24")
+theme_override_styles/hover = SubResource("StyleBoxFlat_wu84c")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_rtw2f")
+theme_override_styles/focus = SubResource("StyleBoxFlat_oa1go")
+text = "tim follin - title screen"
+
+[node name="Level3" type="Button" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -440.5
+offset_top = 52.0
+offset_right = 440.5
+offset_bottom = 130.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_ekxnf")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_bqqt6")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_8ln24")
+theme_override_styles/hover = SubResource("StyleBoxFlat_wu84c")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_rtw2f")
+theme_override_styles/focus = SubResource("StyleBoxFlat_oa1go")
+text = "ta1lsd0ll - ta1lsd004"
+
+[node name="LS" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -334.5
+offset_top = 338.0
+offset_right = 334.5
+offset_bottom = 389.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_ekxnf")
+theme_override_font_sizes/font_size = 50
+text = "level selection"
+
+[node name="Easy" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 471.0
+offset_top = 411.0
+offset_right = 551.0
+offset_bottom = 462.0
+grow_horizontal = 2
+rotation = 1.5707964
+theme_override_fonts/font = ExtResource("2_ekxnf")
+theme_override_font_sizes/font_size = 20
+text = "easy"
+
+[node name="Medium" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -465.0
+offset_top = 579.0
+offset_right = -345.0
+offset_bottom = 630.0
+grow_horizontal = 2
+rotation = 4.712389
+theme_override_fonts/font = ExtResource("2_ekxnf")
+theme_override_font_sizes/font_size = 13
+text = "medium"
+
+[node name="Hard" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 471.0
+offset_top = 592.0
+offset_right = 551.0
+offset_bottom = 643.0
+grow_horizontal = 2
+rotation = 1.5707964
+theme_override_fonts/font = ExtResource("2_ekxnf")
+theme_override_font_sizes/font_size = 20
+text = "hard"
+
+[connection signal="pressed" from="CanvasLayer/Level1" to="." method="_on_level_1_pressed"]
+[connection signal="pressed" from="CanvasLayer/Level2" to="." method="_on_level_2_pressed"]
+[connection signal="pressed" from="CanvasLayer/Level3" to="." method="_on_level_3_pressed"]
