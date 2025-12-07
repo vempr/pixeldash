@@ -2,6 +2,7 @@ extends Node
 
 enum GAMEMODE { CUBE, SHIP }
 enum SPEED { SLOW, NORMAL, FAST, FASTER }
+enum ORB { PINK, YELLOW, BLUE }
 
 var SPEED_EFFECTS := {
 	SPEED.SLOW: 0.75,

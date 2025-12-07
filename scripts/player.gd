@@ -6,6 +6,8 @@ signal change_gamemode(gm: G.GAMEMODE)
 signal flip_gravity
 @warning_ignore("unused_signal")
 signal change_speed(s: G.SPEED)
+@warning_ignore("unused_signal")
+signal click_orb(o: G.ORB)
 
 const JUMP_BUFFER_TIME := 0.15
 var current_gravity_scale := 1.0
@@ -69,6 +71,29 @@ func _on_change_speed(s: int) -> void:
 	velocity.x = G.SPEED_EFFECTS[s] * BASE_SPEED
 
 
+func _on_orb_clicked(o: int) -> void:
+	match gamemode:
+		G.GAMEMODE.CUBE:
+			match o:
+				G.ORB.YELLOW:
+					jump_cube()
+				G.ORB.PINK:
+					jump_cube(0.75)
+				G.ORB.BLUE:
+					current_gravity_scale *= -1
+					velocity.y = -velocity.y * 0.5
+		G.GAMEMODE.SHIP:
+			match o:
+				G.ORB.YELLOW:
+					velocity.y += SHIP_BOOST_FORCE * 0.4 * current_gravity_scale
+				G.ORB.PINK:
+					velocity.y += SHIP_BOOST_FORCE * 0.2 * current_gravity_scale
+				G.ORB.BLUE:
+					current_gravity_scale *= -1
+					velocity.y = -velocity.y * 0.5
+					%Ship.scale.y = sign(current_gravity_scale)
+
+
 func hide_all_sprites() -> void:
 	%Cube.visible = false
 	%Ship.visible = false
@@ -81,6 +106,16 @@ func disable_all_colliders() -> void:
 
 func enable_collider(c: CollisionShape2D) -> void:
 	c.disabled = false
+
+
+func jump_cube(multi: float = 1.0) -> void:
+	velocity.y = CUBE_JUMP_VELOCITY * current_gravity_scale * multi
+	if current_gravity_scale > 0:
+		%CubeSpriteAP.play("spin")
+	else:
+		%CubeSpriteAP.play_backwards("spin")
+	is_playing_spin_anim = true
+	jump_buffer = 0.0
 
 
 func process_gamemode_cube(delta: float) -> void:
@@ -100,13 +135,7 @@ func process_gamemode_cube(delta: float) -> void:
 		is_playing_spin_anim = false
 	
 	if jump_buffer > 0.0:
-		velocity.y = CUBE_JUMP_VELOCITY * current_gravity_scale
-		if current_gravity_scale > 0:
-			%CubeSpriteAP.play("spin")
-		else:
-			%CubeSpriteAP.play_backwards("spin")
-		is_playing_spin_anim = true
-		jump_buffer = 0.0
+		jump_cube()
 	
 	move_and_slide()
 	

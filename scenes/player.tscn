@@ -103,4 +103,5 @@ shape = SubResource("RectangleShape2D_3vyb7")
 
 [connection signal="change_gamemode" from="." to="." method="_on_change_gamemode"]
 [connection signal="change_speed" from="." to="." method="_on_change_speed"]
+[connection signal="click_orb" from="." to="." method="_on_orb_clicked"]
 [connection signal="flip_gravity" from="." to="." method="_on_flip_gravity"]

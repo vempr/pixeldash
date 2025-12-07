@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://r4aobl45amqc"]
+[gd_scene load_steps=8 format=3 uid="uid://r4aobl45amqc"]
 
 [ext_resource type="Script" uid="uid://cjx5q4iutkmsw" path="res://scripts/game.gd" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://ucyt4248p448" path="res://scenes/player.tscn" id="2_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://x8yib13ffx6t" path="res://scenes/portal.tscn" id="3_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://c1c0m3h2438di" path="res://scenes/gravity_portal.tscn" id="4_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://d3gft43fec0bl" path="res://scenes/speed_portal.tscn" id="5_iywne"]
+[ext_resource type="PackedScene" uid="uid://bfssui8kfkpyb" path="res://scenes/orb.tscn" id="6_p57ef"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uwrxv"]
 size = Vector2(6235, 306)
@@ -25,7 +26,7 @@ position = Vector2(3107.5, 143)
 shape = SubResource("RectangleShape2D_uwrxv")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
-position = Vector2(1972, 356)
+position = Vector2(2650, -108)
 metadata/_edit_group_ = true
 
 [node name="ColorRect" type="ColorRect" parent="StaticBody2D2"]
@@ -40,19 +41,43 @@ shape = SubResource("RectangleShape2D_uwrxv")
 position = Vector2(90, 736)
 
 [node name="Portal" parent="." instance=ExtResource("3_lnu2h")]
-position = Vector2(828, 511)
+position = Vector2(240, 751)
 gamemode = 1
 
 [node name="Portal2" parent="." instance=ExtResource("3_lnu2h")]
-position = Vector2(2233, 779)
+position = Vector2(2678, 770)
 
 [node name="Portal5" parent="." instance=ExtResource("4_lbhrr")]
-position = Vector2(4583, 785)
+position = Vector2(2760, 771)
 
 [node name="SpeedPortal" parent="." instance=ExtResource("5_iywne")]
 position = Vector2(1201, 742)
 speed = 3
 
 [node name="SpeedPortal2" parent="." instance=ExtResource("5_iywne")]
-position = Vector2(2967, 792)
+position = Vector2(4571, 575)
 speed = 0
+
+[node name="Orb2" parent="." instance=ExtResource("6_p57ef")]
+position = Vector2(1400, 795)
+orb = 0
+
+[node name="Orb3" parent="." instance=ExtResource("6_p57ef")]
+position = Vector2(1682, 330)
+orb = 0
+
+[node name="Orb4" parent="." instance=ExtResource("6_p57ef")]
+position = Vector2(2112, 626)
+orb = 0
+
+[node name="Orb5" parent="." instance=ExtResource("6_p57ef")]
+position = Vector2(3813, 436)
+orb = 0
+
+[node name="Orb6" parent="." instance=ExtResource("6_p57ef")]
+position = Vector2(5414, 461)
+orb = 1
+
+[node name="Orb7" parent="." instance=ExtResource("6_p57ef")]
+position = Vector2(6928, 434)
+orb = 2

@@ -1,0 +1,125 @@
+[gd_scene load_steps=13 format=3 uid="uid://bfssui8kfkpyb"]
+
+[ext_resource type="Script" uid="uid://c87marde60w2n" path="res://scripts/orb.gd" id="1_ktqa0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1j06i"]
+radius = 60.0
+
+[sub_resource type="Animation" id="Animation_ktqa0"]
+resource_name = "expand"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.7, 1.7)]
+}
+
+[sub_resource type="Animation" id="Animation_ubfm6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_g6cbt"]
+resource_name = "shrink"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.7, 1.7), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g6cbt"]
+_data = {
+&"RESET": SubResource("Animation_ubfm6"),
+&"expand": SubResource("Animation_ktqa0"),
+&"shrink": SubResource("Animation_g6cbt")
+}
+
+[sub_resource type="Gradient" id="Gradient_1j06i"]
+offsets = PackedFloat32Array(0.6803279, 0.6885246, 0.6939163, 0.6958175, 0.69961977)
+colors = PackedColorArray(1, 0.8862745, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ktqa0"]
+gradient = SubResource("Gradient_1j06i")
+width = 100
+height = 100
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_ktqa0"]
+offsets = PackedFloat32Array(0.6803279, 0.6885246, 0.6939163, 0.6958175, 0.69961977)
+colors = PackedColorArray(1, 0.4509804, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ubfm6"]
+gradient = SubResource("Gradient_ktqa0")
+width = 100
+height = 100
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_ubfm6"]
+offsets = PackedFloat32Array(0.6803279, 0.6885246, 0.6939163, 0.6958175, 0.69961977)
+colors = PackedColorArray(0.28235295, 0.7254902, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g6cbt"]
+gradient = SubResource("Gradient_ubfm6")
+width = 100
+height = 100
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Orb" type="Area2D"]
+z_index = -1
+script = ExtResource("1_ktqa0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1j06i")
+
+[node name="SpriteAP" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_g6cbt")
+}
+
+[node name="Sprite" type="Node2D" parent="."]
+
+[node name="Yellow" type="Sprite2D" parent="Sprite"]
+unique_name_in_owner = true
+visible = false
+texture = SubResource("GradientTexture2D_ktqa0")
+
+[node name="Pink" type="Sprite2D" parent="Sprite"]
+unique_name_in_owner = true
+visible = false
+texture = SubResource("GradientTexture2D_ubfm6")
+
+[node name="Blue" type="Sprite2D" parent="Sprite"]
+unique_name_in_owner = true
+texture = SubResource("GradientTexture2D_g6cbt")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
