@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ppl40"]
 size = Vector2(60, 250)
 
-[node name="Portal" type="Area2D"]
+[node name="GravityPortal" type="Area2D"]
 z_index = 1
 script = ExtResource("1_j7w7d")
 

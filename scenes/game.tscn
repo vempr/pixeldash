@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://r4aobl45amqc"]
+[gd_scene load_steps=7 format=3 uid="uid://r4aobl45amqc"]
 
 [ext_resource type="Script" uid="uid://cjx5q4iutkmsw" path="res://scripts/game.gd" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://ucyt4248p448" path="res://scenes/player.tscn" id="2_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://x8yib13ffx6t" path="res://scenes/portal.tscn" id="3_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://c1c0m3h2438di" path="res://scenes/gravity_portal.tscn" id="4_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://d3gft43fec0bl" path="res://scenes/speed_portal.tscn" id="5_iywne"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uwrxv"]
 size = Vector2(6235, 306)
@@ -24,7 +25,7 @@ position = Vector2(3107.5, 143)
 shape = SubResource("RectangleShape2D_uwrxv")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
-position = Vector2(4631, -211)
+position = Vector2(1972, 356)
 metadata/_edit_group_ = true
 
 [node name="ColorRect" type="ColorRect" parent="StaticBody2D2"]
@@ -43,13 +44,15 @@ position = Vector2(828, 511)
 gamemode = 1
 
 [node name="Portal2" parent="." instance=ExtResource("3_lnu2h")]
-position = Vector2(5564, 525)
-
-[node name="Portal3" parent="." instance=ExtResource("4_lbhrr")]
-position = Vector2(2319, 224)
-
-[node name="Portal4" parent="." instance=ExtResource("4_lbhrr")]
-position = Vector2(3434, 722)
+position = Vector2(2233, 779)
 
 [node name="Portal5" parent="." instance=ExtResource("4_lbhrr")]
-position = Vector2(6122, 647)
+position = Vector2(4583, 785)
+
+[node name="SpeedPortal" parent="." instance=ExtResource("5_iywne")]
+position = Vector2(1201, 742)
+speed = 3
+
+[node name="SpeedPortal2" parent="." instance=ExtResource("5_iywne")]
+position = Vector2(2967, 792)
+speed = 0

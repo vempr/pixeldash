@@ -4,11 +4,14 @@ extends CharacterBody2D
 signal change_gamemode(gm: G.GAMEMODE)
 @warning_ignore("unused_signal")
 signal flip_gravity
+@warning_ignore("unused_signal")
+signal change_speed(s: G.SPEED)
 
 const JUMP_BUFFER_TIME := 0.15
 var current_gravity_scale := 1.0
 
-var SPEED := 800.0
+const BASE_SPEED := 800.0
+var SPEED := BASE_SPEED
 var CUBE_JUMP_VELOCITY := -1300.0
 var SHIP_BOOST_FORCE := -7000.0
 var SHIP_MAX_UP_SPEED := -1600.0
@@ -21,7 +24,7 @@ var jump_buffer := 0.0
 
 
 func _ready() -> void:
-	velocity.x = SPEED
+	velocity.x = BASE_SPEED
 	
 	hide_all_sprites()
 	call_deferred("disable_all_colliders")
@@ -62,6 +65,10 @@ func _on_flip_gravity() -> void:
 		velocity.y = lerp(velocity.y, -velocity.y * 0.5, 0.15)
 
 
+func _on_change_speed(s: int) -> void:
+	velocity.x = G.SPEED_EFFECTS[s] * BASE_SPEED
+
+
 func hide_all_sprites() -> void:
 	%Cube.visible = false
 	%Ship.visible = false
@@ -77,7 +84,7 @@ func enable_collider(c: CollisionShape2D) -> void:
 
 
 func process_gamemode_cube(delta: float) -> void:
-	var floored := is_on_floor() || is_on_ceiling()
+	var floored := (current_gravity_scale > 0 && is_on_floor()) || (current_gravity_scale < 0 && is_on_ceiling())
 	
 	if not floored:
 		velocity += get_gravity() * delta * 4.0 * current_gravity_scale
@@ -102,6 +109,17 @@ func process_gamemode_cube(delta: float) -> void:
 		jump_buffer = 0.0
 	
 	move_and_slide()
+	
+	if current_gravity_scale > 0:
+		if is_on_ceiling() && velocity.y < 0:
+			velocity.y = 0
+		elif is_on_floor() && velocity.y > 0:
+			velocity.y = 0
+	else:
+		if is_on_ceiling() && velocity.y > 0:
+			velocity.y = 0
+		elif is_on_floor() && velocity.y < 0:
+			velocity.y = 0
  
 
 func process_gamemode_ship(delta: float) -> void:
