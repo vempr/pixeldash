@@ -2,6 +2,21 @@
 
 [ext_resource type="Script" uid="uid://qbkxl5h4msom" path="res://scripts/player.gd" id="1_3vyb7"]
 
+[sub_resource type="Animation" id="Animation_g2els"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cube/CubeSprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
 [sub_resource type="Animation" id="Animation_3vyb7"]
 resource_name = "spin"
 length = 0.65
@@ -17,21 +32,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.0, 3.1415927]
-}
-
-[sub_resource type="Animation" id="Animation_g2els"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Cube/CubeSprite:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qhqgy"]
@@ -102,3 +102,4 @@ position = Vector2(-2, 3.5)
 shape = SubResource("RectangleShape2D_3vyb7")
 
 [connection signal="change_gamemode" from="." to="." method="_on_change_gamemode"]
+[connection signal="flip_gravity" from="." to="." method="_on_flip_gravity"]
