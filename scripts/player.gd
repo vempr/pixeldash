@@ -10,6 +10,8 @@ signal change_speed(s: G.SPEED)
 signal click_orb(o: G.ORB)
 @warning_ignore("unused_signal")
 signal die
+@warning_ignore("unused_signal")
+signal win
 signal restart
 
 const JUMP_BUFFER_TIME := 0.15
@@ -18,6 +20,8 @@ var current_gravity_scale := 1.0
 var gamemode: G.GAMEMODE = G.GAMEMODE.CUBE
 var draw_trail := false
 var dead := false
+var died := false
+var won := false
 
 const BASE_SPEED := 800.0
 var SPEED := BASE_SPEED
@@ -45,14 +49,27 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if won:
+		died = true
+		won = false
+		%Xphit.play()
+		%DieAP.play("explode")
+		await %DieAP.animation_finished
+		process_mode = Node.PROCESS_MODE_DISABLED
+	
 	if dead || velocity.x == 0:
-		dead = true
+		dead = false
+		died = true
 		%Sprite.visible = false
 		%DieAP.play("explode")
+		%Splat.play(0.3)
 		await %DieAP.animation_finished
 		process_mode = Node.PROCESS_MODE_DISABLED
 		await get_tree().create_timer(1.0).timeout
 		restart.emit()
+	
+	if died:
+		return
 	
 	match gamemode:
 		G.GAMEMODE.CUBE:
@@ -322,3 +339,7 @@ func _on_trail_timer_timeout() -> void:
 
 func _on_die() -> void:
 	dead = true
+
+
+func _on_win() -> void:
+	won = true

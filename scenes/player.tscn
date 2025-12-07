@@ -1,6 +1,8 @@
-[gd_scene load_steps=23 format=3 uid="uid://ucyt4248p448"]
+[gd_scene load_steps=25 format=3 uid="uid://ucyt4248p448"]
 
 [ext_resource type="Script" uid="uid://qbkxl5h4msom" path="res://scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="AudioStream" uid="uid://ceo6g2hdx7k7n" path="res://assets/sfx/splat.mp3" id="2_g2els"]
+[ext_resource type="AudioStream" uid="uid://dmrdrrx8nuyp6" path="res://assets/sfx/xphit.mp3" id="3_qhqgy"]
 
 [sub_resource type="Gradient" id="Gradient_3vyb7"]
 offsets = PackedFloat32Array(0.6803279, 0.6885246, 0.6939163, 0.6958175, 0.69961977)
@@ -243,6 +245,11 @@ libraries = {
 &"": SubResource("AnimationLibrary_y4r1p")
 }
 
+[node name="Splat" type="AudioStreamPlayer" parent="Die"]
+unique_name_in_owner = true
+stream = ExtResource("2_g2els")
+volume_db = -10.0
+
 [node name="Sprite" type="Node2D" parent="."]
 unique_name_in_owner = true
 
@@ -357,9 +364,14 @@ unique_name_in_owner = true
 wait_time = 0.2
 one_shot = true
 
+[node name="Xphit" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_qhqgy")
+
 [connection signal="change_gamemode" from="." to="." method="_on_change_gamemode"]
 [connection signal="change_speed" from="." to="." method="_on_change_speed"]
 [connection signal="click_orb" from="." to="." method="_on_orb_clicked"]
 [connection signal="die" from="." to="." method="_on_die"]
 [connection signal="flip_gravity" from="." to="." method="_on_flip_gravity"]
+[connection signal="win" from="." to="." method="_on_win"]
 [connection signal="timeout" from="TrailTimer" to="." method="_on_trail_timer_timeout"]

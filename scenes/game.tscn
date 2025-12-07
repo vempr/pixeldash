@@ -1,14 +1,27 @@
-[gd_scene load_steps=11 format=3 uid="uid://r4aobl45amqc"]
+[gd_scene load_steps=14 format=3 uid="uid://r4aobl45amqc"]
 
 [ext_resource type="Script" uid="uid://cjx5q4iutkmsw" path="res://scripts/game.gd" id="1_uwrxv"]
+[ext_resource type="FontFile" uid="uid://dqah31gtvyewx" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="2_iywne"]
 [ext_resource type="PackedScene" uid="uid://ucyt4248p448" path="res://scenes/player.tscn" id="2_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://x8yib13ffx6t" path="res://scenes/interact/portal.tscn" id="3_lnu2h"]
-[ext_resource type="PackedScene" uid="uid://c1c0m3h2438di" path="res://scenes/interact/gravity_portal.tscn" id="4_lbhrr"]
-[ext_resource type="PackedScene" uid="uid://d3gft43fec0bl" path="res://scenes/interact/speed_portal.tscn" id="5_iywne"]
-[ext_resource type="PackedScene" uid="uid://bfssui8kfkpyb" path="res://scenes/interact/orb.tscn" id="6_p57ef"]
-[ext_resource type="PackedScene" uid="uid://dlsxnkhitwmn5" path="res://scenes/killable/y_border.tscn" id="7_u5sy4"]
-[ext_resource type="PackedScene" uid="uid://dtewbm8cdkvod" path="res://scenes/killable/spike.tscn" id="8_0tnpc"]
+[ext_resource type="FontFile" uid="uid://5rl5t366etfu" path="res://assets/fonts/PixelOperator8.ttf" id="3_p57ef"]
+[ext_resource type="PackedScene" uid="uid://6egknlt432yk" path="res://scenes/end.tscn" id="9_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://bfpcpysh85vji" path="res://scenes/killable/sawblade.tscn" id="9_vtaks"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iywne"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p57ef"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u5sy4"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gee14"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0tnpc"]
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uwrxv"]
 size = Vector2(6235, 306)
@@ -16,8 +29,85 @@ size = Vector2(6235, 306)
 [node name="Game" type="Node2D"]
 script = ExtResource("1_uwrxv")
 
+[node name="Win" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="Title" type="Label" parent="Win"]
+offset_left = 53.0
+offset_top = 41.0
+offset_right = 903.0
+offset_bottom = 142.00089
+theme_override_fonts/font = ExtResource("2_iywne")
+theme_override_font_sizes/font_size = 100
+text = "you won!"
+
+[node name="Attempts" type="Label" parent="Win"]
+unique_name_in_owner = true
+offset_left = 64.0
+offset_top = 172.0
+offset_right = 1841.0
+offset_bottom = 223.0
+theme_override_constants/line_spacing = 7
+theme_override_fonts/font = ExtResource("3_p57ef")
+theme_override_font_sizes/font_size = 50
+text = "after 10 attempts"
+vertical_alignment = 2
+autowrap_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Win"]
+z_index = -1
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 0.78431374)
+metadata/_edit_lock_ = true
+
+[node name="MainMenu" type="Button" parent="Win"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -440.5
+offset_top = -87.0
+offset_right = 440.5
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_iywne")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_iywne")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_p57ef")
+theme_override_styles/hover = SubResource("StyleBoxFlat_u5sy4")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_gee14")
+theme_override_styles/focus = SubResource("StyleBoxFlat_0tnpc")
+text = "main menu"
+
+[node name="Replay" type="Button" parent="Win"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -440.5
+offset_top = 5.0
+offset_right = 440.5
+offset_bottom = 83.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_iywne")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_iywne")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_p57ef")
+theme_override_styles/hover = SubResource("StyleBoxFlat_u5sy4")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_gee14")
+theme_override_styles/focus = SubResource("StyleBoxFlat_0tnpc")
+text = "play again"
+
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(-5461, 953)
+position = Vector2(-3746, 682)
 metadata/_edit_group_ = true
 
 [node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
@@ -29,7 +119,7 @@ position = Vector2(3107.5, 143)
 shape = SubResource("RectangleShape2D_uwrxv")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
-position = Vector2(1211, -96)
+position = Vector2(2772, -251)
 metadata/_edit_group_ = true
 
 [node name="ColorRect" type="ColorRect" parent="StaticBody2D2"]
@@ -41,56 +131,19 @@ position = Vector2(3107.5, 143)
 shape = SubResource("RectangleShape2D_uwrxv")
 
 [node name="Player" parent="." instance=ExtResource("2_yqjtg")]
-position = Vector2(90, 736)
+position = Vector2(293, 552)
 
-[node name="Portal" parent="." instance=ExtResource("3_lnu2h")]
-position = Vector2(240, 751)
-gamemode = 1
-
-[node name="Portal2" parent="." instance=ExtResource("3_lnu2h")]
-position = Vector2(2702, 549)
-gamemode = 1
-
-[node name="Portal5" parent="." instance=ExtResource("4_lbhrr")]
-position = Vector2(3500, 600)
-
-[node name="SpeedPortal" parent="." instance=ExtResource("5_iywne")]
-position = Vector2(1201, 742)
-speed = 3
-
-[node name="SpeedPortal2" parent="." instance=ExtResource("5_iywne")]
-position = Vector2(4571, 575)
-speed = 0
-
-[node name="Orb2" parent="." instance=ExtResource("6_p57ef")]
-position = Vector2(1537, 624)
-orb = 2
-
-[node name="Orb3" parent="." instance=ExtResource("6_p57ef")]
-position = Vector2(2988, 614)
-orb = 2
-
-[node name="Orb4" parent="." instance=ExtResource("6_p57ef")]
-position = Vector2(2158, 622)
-
-[node name="Orb5" parent="." instance=ExtResource("6_p57ef")]
-position = Vector2(3813, 436)
-orb = 0
-
-[node name="Orb6" parent="." instance=ExtResource("6_p57ef")]
-position = Vector2(5414, 461)
-
-[node name="Orb7" parent="." instance=ExtResource("6_p57ef")]
-position = Vector2(6928, 434)
-orb = 2
-
-[node name="YBorder" parent="." instance=ExtResource("7_u5sy4")]
-position = Vector2(622, 1398)
-
-[node name="Spike" parent="." instance=ExtResource("8_0tnpc")]
-position = Vector2(755, 929)
+[node name="End" parent="." instance=ExtResource("9_0tnpc")]
+position = Vector2(3577, 2021)
 
 [node name="Sawblade" parent="." instance=ExtResource("9_vtaks")]
-position = Vector2(843, 475)
+position = Vector2(1350, 320)
 
+[node name="Portal" parent="." instance=ExtResource("3_lnu2h")]
+position = Vector2(524, 514)
+gamemode = 3
+
+[connection signal="pressed" from="Win/MainMenu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="Win/Replay" to="." method="_on_replay_pressed"]
 [connection signal="restart" from="Player" to="." method="_on_player_restart"]
+[connection signal="win" from="Player" to="." method="_on_player_win"]

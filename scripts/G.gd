@@ -10,3 +10,5 @@ var SPEED_EFFECTS := {
 	SPEED.FAST: 1.25,
 	SPEED.FASTER: 1.50,
 }
+
+var attempts := 1
