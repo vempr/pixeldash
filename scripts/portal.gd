@@ -7,8 +7,13 @@ func _ready() -> void:
 	match gamemode:
 		G.GAMEMODE.CUBE:
 			%Indicator.text = "cube"
+			%Indicator.add_theme_color_override("font_color", Color(0.0, 0.925, 0.0))
 		G.GAMEMODE.SHIP:
 			%Indicator.text = "ship"
+			%Indicator.add_theme_color_override("font_color", Color(1.0, 0.0, 0.816))
+		G.GAMEMODE.BALL:
+			%Indicator.text = "ball"
+			%Indicator.add_theme_color_override("font_color", Color(1.0, 0.0, 0.259))
 
 
 func _on_body_entered(body: Node2D) -> void:

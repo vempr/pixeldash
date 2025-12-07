@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ucyt4248p448"]
+[gd_scene load_steps=13 format=3 uid="uid://ucyt4248p448"]
 
 [ext_resource type="Script" uid="uid://qbkxl5h4msom" path="res://scripts/player.gd" id="1_3vyb7"]
 
@@ -7,7 +7,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Cube/CubeSprite:rotation")
+tracks/0/path = NodePath("Sprite/Cube/CubeSprite:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -24,7 +24,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Cube/CubeSprite:rotation")
+tracks/0/path = NodePath("Sprite/Cube/CubeSprite:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -40,7 +40,58 @@ _data = {
 &"spin": SubResource("Animation_3vyb7")
 }
 
+[sub_resource type="Gradient" id="Gradient_1j06i"]
+offsets = PackedFloat32Array(0.6803279, 0.6885246, 0.6939163, 0.6958175, 0.69961977)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3vyb7"]
+gradient = SubResource("Gradient_1j06i")
+width = 105
+height = 105
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Animation" id="Animation_qhqgy"]
+resource_name = "spin"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Square:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.2831855]
+}
+
+[sub_resource type="Animation" id="Animation_dqkch"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Square:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qlg0r"]
+_data = {
+&"RESET": SubResource("Animation_dqkch"),
+&"spin": SubResource("Animation_qhqgy")
+}
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u8vuu"]
+size = Vector2(100, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
 size = Vector2(100, 100)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
@@ -49,15 +100,14 @@ size = Vector2(86, 95)
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_3vyb7")
 
-[node name="Camera" type="Camera2D" parent="."]
-offset = Vector2(300, -100)
-zoom = Vector2(0.6, 0.6)
+[node name="Sprite" type="Node2D" parent="."]
+unique_name_in_owner = true
 
-[node name="Cube" type="Node2D" parent="."]
+[node name="Cube" type="Node2D" parent="Sprite"]
 unique_name_in_owner = true
 visible = false
 
-[node name="CubeSprite" type="ColorRect" parent="Cube"]
+[node name="CubeSprite" type="ColorRect" parent="Sprite/Cube"]
 unique_name_in_owner = true
 offset_left = -50.0
 offset_top = -50.0
@@ -65,30 +115,59 @@ offset_right = 50.0
 offset_bottom = 50.0
 pivot_offset = Vector2(50, 50)
 
-[node name="CubeSpriteAP" type="AnimationPlayer" parent="Cube"]
+[node name="CubeSpriteAP" type="AnimationPlayer" parent="Sprite/Cube"]
 unique_name_in_owner = true
-root_node = NodePath("../..")
+root_node = NodePath("../../..")
 libraries = {
 &"": SubResource("AnimationLibrary_qhqgy")
 }
 
-[node name="Ship" type="Node2D" parent="."]
+[node name="Ship" type="Node2D" parent="Sprite"]
 unique_name_in_owner = true
+visible = false
 
-[node name="ShipSprite" type="Node2D" parent="Ship"]
+[node name="ShipSprite" type="Node2D" parent="Sprite/Ship"]
 
-[node name="CubeSprite" type="ColorRect" parent="Ship/ShipSprite"]
+[node name="CubeSprite" type="ColorRect" parent="Sprite/Ship/ShipSprite"]
 offset_left = -45.0
 offset_top = -44.0
 offset_right = 41.0
 offset_bottom = 30.0
 pivot_offset = Vector2(50, 50)
 
-[node name="PortalSprite" type="Polygon2D" parent="Ship/ShipSprite"]
+[node name="PortalSprite" type="Polygon2D" parent="Sprite/Ship/ShipSprite"]
 unique_name_in_owner = true
 position = Vector2(-0.9594574, -6.6923094)
 scale = Vector2(0.9594595, 1.1538461)
 polygon = PackedVector2Array(-73, 13.6, -73, 34.4, -58.40845, 50, 51.028164, 50, 75.00001, 29.461086, 51.028164, 13.6, -60.49296, 13.6)
+
+[node name="Ball" type="Node2D" parent="Sprite"]
+unique_name_in_owner = true
+
+[node name="BallSprite" type="Sprite2D" parent="Sprite/Ball"]
+unique_name_in_owner = true
+texture = SubResource("GradientTexture2D_3vyb7")
+
+[node name="Square" type="ColorRect" parent="Sprite/Ball"]
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+pivot_offset = Vector2(25, 25)
+color = Color(0, 0, 0, 1)
+
+[node name="BallSpriteAP" type="AnimationPlayer" parent="Sprite/Ball"]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_qlg0r")
+}
+autoplay = "spin"
+
+[node name="Camera" type="Camera2D" parent="."]
+offset = Vector2(800, 0)
+zoom = Vector2(0.6, 0.6)
+position_smoothing_enabled = true
+position_smoothing_speed = 3.0
 
 [node name="CubeCollisionShape" type="CollisionShape2D" parent="."]
 unique_name_in_owner = true
@@ -96,8 +175,14 @@ visible = false
 shape = SubResource("RectangleShape2D_u8vuu")
 debug_color = Color(0.99999994, 0.017771125, 0.0120093925, 0.41960785)
 
+[node name="BallCollisionShape" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+shape = SubResource("RectangleShape2D_g2els")
+debug_color = Color(0.9512605, 2.4065375e-06, 0.5678487, 0.41960785)
+
 [node name="ShipCollisionShape" type="CollisionShape2D" parent="."]
 unique_name_in_owner = true
+visible = false
 position = Vector2(-2, 3.5)
 shape = SubResource("RectangleShape2D_3vyb7")
 

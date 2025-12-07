@@ -1,6 +1,6 @@
 extends Node
 
-enum GAMEMODE { CUBE, SHIP }
+enum GAMEMODE { CUBE, SHIP, BALL }
 enum SPEED { SLOW, NORMAL, FAST, FASTER }
 enum ORB { PINK, YELLOW, BLUE }
 

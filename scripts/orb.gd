@@ -2,7 +2,7 @@ extends Area2D
 
 @export var orb := G.ORB.YELLOW
 
-const JUMP_BUFFER_TIME := 0.05
+const JUMP_BUFFER_TIME := 0.2
 
 var has_been_clicked := false
 var can_click := false
@@ -25,7 +25,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if Input.is_action_pressed("jump"):
+	if Input.is_action_just_pressed("jump"):
 		jump_buffer = JUMP_BUFFER_TIME
 	else:
 		jump_buffer -= delta
